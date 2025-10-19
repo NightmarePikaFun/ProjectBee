@@ -2,6 +2,7 @@ using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class tmp : MonoBehaviour
@@ -18,12 +19,16 @@ public class tmp : MonoBehaviour
 
     private Vector3 startPoint;
     private Tween tween;
+
+    private Hive hive;
     // Start is called before the first frame update
     void Start()
     {
         startPoint = cube.position;
         image.enabled = false;
         btn.onClick.AddListener(() => { ButtonAction(!image.enabled); });
+
+        hive = new Hive(7);
     }
 
     // Update is called once per frame
@@ -47,5 +52,17 @@ public class tmp : MonoBehaviour
         }
 
         image.enabled = state;
+    }
+
+    private void OnMouseDown()
+    {
+        if(Input.GetMouseButtonDown(0))
+            Debug.Log("L+D");
+        if (Input.GetMouseButtonDown(1))
+        {
+            ControllerUI.Instance.ShowHiveView(hive);
+            Debug.Log("R+D");
+        }
+
     }
 }
