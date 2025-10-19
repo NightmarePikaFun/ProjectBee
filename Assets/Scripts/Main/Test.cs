@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
-using TMPro;
 using UnityEngine;
+using UnityEngine.XR;
+using Debug = UnityEngine.Debug;
 
-public class Transparency : MonoBehaviour
+public class Test : MonoBehaviour
 {
     [StructLayout(LayoutKind.Sequential)]
     private struct RECT { public int left, top, right, bottom; }
@@ -16,16 +17,21 @@ public class Transparency : MonoBehaviour
     private const int GWL_STYLE = -16;
     private const int GWL_EXSTYLE = -20;
 
+    private const uint WS_OVERLAPPEDWINDOW = 0x00CF0000;
+    private const uint WS_POPUP = 0x80000000;
     private const uint WS_VISIBLE = 0x10000000;
     private const uint WS_EX_LAYERED = 0x00080000;
 
     private const uint SPI_GETWORKAREA = 0x0030;
-
+    private const int SWP_FRAMECHANGED = 0x0020;
+    private const int SWP_NOZORDER = 0x0004;
+    private const int SWP_NOACTIVATE = 0x0010;
 
     const uint WS_EX_TRANSPARENT = 0x00000020;
     private const uint WS_EX_TOOLWINDOW = 0x00000080;
 
     private const int SW_SHOW = 5;
+    private const uint LWA_ALPHA = 0x2;
 
     const uint LWA_COLORKEY = 0x00000001;
 
@@ -74,11 +80,10 @@ public class Transparency : MonoBehaviour
 
     void Start()
     {
-#if !UNITY_EDITOR
         IntPtr hwnd = GetActiveWindow();
         if (hwnd == IntPtr.Zero)
         {
-            Debug.LogError("Failed to get Unity window handle.");
+            Debug.LogError("❌ Failed to get Unity window handle.");
             return;
         }
 
@@ -92,12 +97,13 @@ public class Transparency : MonoBehaviour
         long style = stylePtr.ToInt64();
 
         // Apply popup + visible (borderless)
-        style = (long)(WS_VISIBLE);
+        style = (long)( WS_VISIBLE);//WS_POPUP |
         SetWindowLongPtr(hwnd, GWL_STYLE, new IntPtr(style));
 
         // Add layered extended style (for transparency)
         IntPtr exStylePtr = GetWindowLongPtr(hwnd, GWL_EXSTYLE);
-        SetWindowLongPtr(hwnd, GWL_EXSTYLE, new IntPtr(WS_EX_LAYERED));
+        long exStyle = WS_EX_LAYERED | WS_EX_TRANSPARENT | WS_EX_TOOLWINDOW;//exStylePtr.ToInt64() | WS_EX_LAYERED;
+        SetWindowLongPtr(hwnd, GWL_EXSTYLE, new IntPtr(WS_EX_LAYERED));// | WS_EX_TRANSPARENT));
 
         // Resize window to work area (without taskbar)
         SetWindowPos(hwnd, HWND_TOPMOST, workArea.left, workArea.top, width, height, 0);
@@ -108,7 +114,7 @@ public class Transparency : MonoBehaviour
         // Enable DWM transparency
         MARGINS margins = new MARGINS { cxLeftWidth = -1 };
         DwmExtendFrameIntoClientArea(hwnd, ref margins);
+        //SetLayeredWindowAttributes(hwnd, 0, 255, LWA_ALPHA);
         SetLayeredWindowAttributes(hwnd, 0, 0, LWA_COLORKEY);
-#endif
     }
 }
