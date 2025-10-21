@@ -87,4 +87,17 @@ public class Hive
         }
         return counter < _bees.Length;
     }
+
+    public bool ContainBee()
+    {
+        if (_beeQueen != null)
+            return true;
+        foreach(Bee bee in _bees)
+        {
+            if (bee != null)
+                return true;
+        }
+
+        return false;
+    }
 }

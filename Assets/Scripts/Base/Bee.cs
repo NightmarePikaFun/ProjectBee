@@ -15,6 +15,7 @@ public class Bee
     public float Production { get { return _production; } }
     public float LiveTime { get { return _liveTime; } }
 
+    public bool IsQueen { get { return _isQueen; } }
     public Bee(Genetics gens, bool isQueen = false)
     {
         _gens = gens;

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1900444654393116531}
   - component: {fileID: 433984135607946874}
   - component: {fileID: 6729529841988975879}
+  - component: {fileID: 2993681468347695631}
   m_Layer: 5
   m_Name: HiveSlot
   m_TagString: Untagged
@@ -121,6 +122,20 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &2993681468347695631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1633472628903448436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 563df4f645b6909468af26b64224faf3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  button: {fileID: 6729529841988975879}
+  closedImage: {fileID: 5900018356424883063}
 --- !u!1 &2134788469160778339
 GameObject:
   m_ObjectHideFlags: 0
