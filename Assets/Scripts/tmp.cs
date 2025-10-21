@@ -28,7 +28,7 @@ public class tmp : MonoBehaviour, IPointerClickHandler
         image.enabled = false;
         btn.onClick.AddListener(() => { ButtonAction(!image.enabled); });
 
-        hive = new Hive(7);
+        hive = new Hive();
     }
 
     // Update is called once per frame

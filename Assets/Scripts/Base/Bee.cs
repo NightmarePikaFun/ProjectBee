@@ -13,11 +13,31 @@ public class Bee
     public Genetics Gens { get { return _gens; } }
     public float Health { get { return _health; } }
     public float Production { get { return _production; } }
-    public float LiveTime { get { return _liveTime; } } 
+    public float LiveTime { get { return _liveTime; } }
 
     public Bee(Genetics gens, bool isQueen = false)
     {
         _gens = gens;
         _isQueen = isQueen;
+        CalcStats();
+    }
+
+    public Bee(BeeQueen queen, bool isQueen = false)
+    {
+        _gens = queen.Gens;
+        _health = queen.Health;
+        _production = queen.Production;
+        _liveTime = queen.LiveTime;
+        _isQueen = isQueen;
+    }
+
+    private void CalcStats()
+    {
+
+    }
+
+    public void LifeTick()
+    {
+        _health--;
     }
 }

@@ -4,14 +4,53 @@ using UnityEngine;
 
 public class Hive
 {
-    private int _capasity;
+    private BeeQueen _beeQueen;
     private Bee[] _bees;
+    private int _production = 0;
+    private int _maxProduction = 20;
 
-    public Hive (int Capasity)
+    public Hive ()
     {
-        _capasity = Capasity;
-        _bees = new Bee[_capasity];
+        _bees = new Bee[6];
     }
+
+    public void Production()
+    {
+        if(_production < _maxProduction )
+        {
+            _production++;
+        }
+    }
+
+    public void LifeCycle()
+    {
+        if(_beeQueen == null && IsSlotAvailable())
+        {
+            AddBee(new Bee(_beeQueen));
+        }
+        for(int i = 0; i < _bees.Length; i++)
+        {
+            if (_bees[i] != null)
+            {
+                _bees[i].LifeTick();
+                if (_bees[i].Health <= 0)
+                {
+                    _bees[i] = null;
+                }
+            }
+        }
+        _beeQueen.LifeTick();
+        if(_beeQueen.Health <= 0)
+        {
+            for (int i = 0; i < _bees.Length; i++)
+            {
+                _bees[i] = null;
+            }
+            //Create child
+            _beeQueen = null;
+        }
+    }
+
 
     public bool AddBee(Bee bee)
     {
@@ -29,6 +68,13 @@ public class Hive
             return true;
         }
         return false;
+    }
+
+    public int CollectHoney()
+    {
+        int returendProduction = _production;
+        _production = 0;
+        return returendProduction;
     }
 
     private bool IsSlotAvailable()
