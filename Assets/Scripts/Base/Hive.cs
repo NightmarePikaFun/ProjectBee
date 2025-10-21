@@ -9,6 +9,9 @@ public class Hive
     private int _production = 0;
     private int _maxProduction = 20;
 
+    public Bee[] Bees { get { return _bees; } }
+    public Bee BeeQueen { get { return _beeQueen == null ? null : _beeQueen.Bee; } }
+
     public Hive ()
     {
         _bees = new Bee[6];
@@ -24,7 +27,17 @@ public class Hive
 
     public void LifeCycle()
     {
-        if(_beeQueen == null && IsSlotAvailable())
+        if (_beeQueen == null)
+        {
+            //Try find bee for breeding
+            if(ContainBee()> 1 )
+            {
+                BeeBriding();
+            }
+            else
+                return;
+        }
+        if(IsSlotAvailable())
         {
             AddBee(new Bee(_beeQueen));
         }
@@ -51,6 +64,34 @@ public class Hive
         }
     }
 
+    private void BeeBriding()
+    {
+        Bee drone = null, queen = null;
+        bool droneFinded = false;
+        foreach (var bee in _bees)
+        {
+            if (bee == null)
+                continue;
+            if (bee.IsQueen)
+                queen = bee;
+            else
+            {
+                if (!droneFinded)
+                {
+                    drone = bee;
+                    droneFinded = true;
+                }
+            }
+        }
+        if (drone != null && queen != null)
+        {
+            _beeQueen = new BeeQueen(queen, drone);
+            for (int i = 0; i < _bees.Length; i++)
+            {
+                _bees[i] = null;
+            }
+        }
+    }
 
     public bool AddBee(Bee bee)
     {
@@ -65,6 +106,7 @@ public class Hive
                     break;
             }
             _bees[counter] = bee;
+            LifeCycle();
             return true;
         }
         return false;
@@ -82,22 +124,23 @@ public class Hive
         int counter = 0;
         foreach(Bee bee in _bees)
         {
-            if (bee == null)
+            if (bee != null)
                 counter++;
         }
         return counter < _bees.Length;
     }
 
-    public bool ContainBee()
+    public int ContainBee()
     {
+        int count = 0;
         if (_beeQueen != null)
-            return true;
-        foreach(Bee bee in _bees)
+            count += 1;
+        foreach (Bee bee in _bees)
         {
             if (bee != null)
-                return true;
+                count++;
         }
 
-        return false;
+        return count;
     }
 }

@@ -9,6 +9,8 @@ public class HiveSlot : MonoBehaviour, IVisabilityUI
     [SerializeField]
     private Button button;
     [SerializeField]
+    private Image beeImage;
+    [SerializeField]
     private Image closedImage;
     public void Hide()
     {
@@ -20,6 +22,10 @@ public class HiveSlot : MonoBehaviour, IVisabilityUI
         closedImage.enabled = true;
     }
 
+    public void Construct(Bee bee)
+    {
+        beeImage.color = bee.BeeColor;
+    }
 
     public void SetListener(Action action)
     {
@@ -29,7 +35,7 @@ public class HiveSlot : MonoBehaviour, IVisabilityUI
     // Start is called before the first frame update
     void Start()
     {
-        button.onClick.AddListener(() => { Debug.Log("Clicked on " + gameObject.name); });
+        //button.onClick.AddListener(() => { Debug.Log("Clicked on " + gameObject.name); });
     }
 
     // Update is called once per frame

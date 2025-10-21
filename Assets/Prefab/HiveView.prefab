@@ -106,12 +106,14 @@ MonoBehaviour:
   closeButton: {fileID: 0}
   queenComb: {fileID: 3613746472733465690}
   droneComb: {fileID: 174883882252350020}
+  mainComb: {fileID: 5661230389273521821}
   otherCombs:
-  - {fileID: 5661230389273521821}
   - {fileID: 3322066455970901798}
   - {fileID: 3360766886355524535}
   - {fileID: 3086635883685096893}
   - {fileID: 3093897166393929083}
+  beeDescriptionView: {fileID: 0}
+  beeDisplayView: {fileID: 0}
 --- !u!1 &7932741960813608234
 GameObject:
   m_ObjectHideFlags: 0
@@ -922,7 +924,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1633472628903448436, guid: 107c770159a37f64f9799d8399f294ae, type: 3}
       propertyPath: m_Name
-      value: HiveSlot
+      value: HiveSlot(M)
       objectReference: {fileID: 0}
     - target: {fileID: 2134788469160778339, guid: 107c770159a37f64f9799d8399f294ae, type: 3}
       propertyPath: m_IsActive

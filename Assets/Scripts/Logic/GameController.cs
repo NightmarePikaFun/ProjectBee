@@ -14,8 +14,12 @@ public class GameController : MonoBehaviour
     public void Construct()
     {
         Player = new PlayerData("PikaFun");
-        Bee drone = new Bee(new Genetics(1, 1, 1));
-        Bee queen = new Bee(new Genetics(1, 1, 1), true);
+
+        //TODO is tmp
+        Bee drone = new Bee(new Genetics(1, 4, 2), Color.red);
+        Bee queen = new Bee(new Genetics(2, 1, 3), new Color(0.01f, 0.01f, 0.01f, 1) ,true);
+        Player.AddBee(drone);
+        Player.AddBee(queen);
     }
 
     private void Awake()

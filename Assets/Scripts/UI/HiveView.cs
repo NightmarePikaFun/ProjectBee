@@ -14,6 +14,8 @@ public class HiveView : MonoBehaviour, IVisabilityUI
     [SerializeField]
     private HiveSlot droneComb;
     [SerializeField]
+    private HiveSlot mainComb;
+    [SerializeField]
     private List<HiveSlot> otherCombs;
     [SerializeField]
     private BeeDescriptionView beeDescriptionView;
@@ -23,6 +25,7 @@ public class HiveView : MonoBehaviour, IVisabilityUI
     private void Awake()
     {
         closeButton.onClick.AddListener(() => { Hide(); });
+        HiveModel.View = this;
     }
     // Start is called before the first frame update
     void Start()
@@ -38,29 +41,37 @@ public class HiveView : MonoBehaviour, IVisabilityUI
 
     public void UpdateInfo(Hive hive)
     {
-        if(hive.ContainBee())
+        beeDescriptionView.Hide();
+        beeDisplayView.Hide();
+        int beeCount = hive.ContainBee();
+        if (hive.BeeQueen != null)
         {
-            ShowAllSlot();
-            /*if(true)//contains only queen)
-            {
-                ShowDroneComb();
-            }*/
+            ShowAllSlot(hive);
         }
-        else
+        else if(beeCount == 0)
         {
             ShowQueenComb();
         }
+        else if(beeCount < 2)
+        {
+            ShowDroneComb();
+        }
     }
 
-    public void ShowAllSlot()
+    public void ShowAllSlot(Hive hive)
     {
         foreach(var item in otherCombs)
         {
             item.Hide();
             item.SetListener(ShowBeeDescription);
         }
+        queenComb.Hide();
         queenComb.SetListener(ShowBeeDescription);
+        droneComb.Hide();
         droneComb.SetListener(ShowBeeDescription);
+        mainComb.Hide();
+        mainComb.Construct(hive.BeeQueen);
+        mainComb.SetListener(ShowBeeDescription);
     }
 
     public void ShowBeeDescription()
@@ -71,12 +82,17 @@ public class HiveView : MonoBehaviour, IVisabilityUI
     public void ShowQueenComb()
     {
         queenComb.Hide();
+        beeDisplayView.Construct(GameController.Instance.Player.Queens);
+        //Add to queen and drone separate because player change one of this
         queenComb.SetListener(beeDisplayView.Show);
     }
 
     public void ShowDroneComb()
     {
+        queenComb.Hide();
+        queenComb.SetListener(ShowBeeDescription);
         droneComb.Hide();
+        beeDisplayView.Construct(GameController.Instance.Player.Drones);
         droneComb.SetListener(beeDisplayView.Show);
     }
 
