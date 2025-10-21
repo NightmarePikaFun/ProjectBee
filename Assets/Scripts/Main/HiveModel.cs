@@ -15,4 +15,16 @@ public static class HiveModel
         }
 
     }
+
+    public static void UpdateView()
+    {
+        if(Hive != null)
+            if(Hive.BeeQueen != null)
+                View.UpdateInfo(Hive);
+    }
+
+    public static void ResetHive()
+    {
+        Hive = null;
+    }
 }

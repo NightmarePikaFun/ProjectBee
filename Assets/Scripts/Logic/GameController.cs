@@ -17,7 +17,7 @@ public class GameController : MonoBehaviour
 
         //TODO is tmp
         Bee drone = new Bee(new Genetics(1, 4, 2), Color.red);
-        Bee queen = new Bee(new Genetics(2, 1, 3), new Color(0.01f, 0.01f, 0.01f, 1) ,true);
+        Bee queen = new Bee(new Genetics(2, 1, 3), new Color(0.1f, 0.1f, 0.1f, 1) ,true);
         Player.AddBee(drone);
         Player.AddBee(queen);
     }
@@ -29,18 +29,6 @@ public class GameController : MonoBehaviour
         else
             Destroy(this);
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    private void FixedUpdate()
-    {
-        
-    }
-
     private IEnumerator HiveTiker()
     {
         while (true)
@@ -50,6 +38,7 @@ public class GameController : MonoBehaviour
             {
                 hive.Production();
                 hive.LifeCycle();
+                HiveModel.UpdateView();
             }
             //Tick 
         }

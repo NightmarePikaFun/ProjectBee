@@ -24,19 +24,8 @@ public class HiveView : MonoBehaviour, IVisabilityUI
 
     private void Awake()
     {
-        closeButton.onClick.AddListener(() => { Hide(); });
+        closeButton.onClick.AddListener(() => { Hide(); HiveModel.ResetHive(); });
         HiveModel.View = this;
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void UpdateInfo(Hive hive)
@@ -112,7 +101,6 @@ public class HiveView : MonoBehaviour, IVisabilityUI
 
 public interface IVisabilityUI
 {
-
     abstract void Hide();
     abstract void Show();
 
