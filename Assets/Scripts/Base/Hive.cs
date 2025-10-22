@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Hive
+public class Hive: ITick
 {
     private BeeQueen _beeQueen;
     private Bee[] _bees;
@@ -25,7 +25,7 @@ public class Hive
         }
     }
 
-    public void LifeCycle()
+    public void LiveTick(WeatherData weather)
     {
         if (_beeQueen == null)
         {
@@ -106,7 +106,7 @@ public class Hive
                     break;
             }
             _bees[counter] = bee;
-            LifeCycle();
+            LiveTick(new WeatherData());
             return true;
         }
         return false;

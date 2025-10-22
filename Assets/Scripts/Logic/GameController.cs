@@ -7,7 +7,7 @@ public class GameController : MonoBehaviour
     public static GameController Instance;
 
     [SerializeField]
-    private List<Hive> hives;
+    private List<HiveChunk> chunks;
 
     public PlayerData Player {  get; private set;}
 
@@ -34,13 +34,30 @@ public class GameController : MonoBehaviour
         while (true)
         {
             yield return new WaitForSecondsRealtime(8);
-            foreach (var hive in hives)
+            foreach (var chunk in chunks)
+            {
+                var item = chunk as ITick;
+                item.LiveTick(new WeatherData());
+            }
+            /*foreach (var hive in hives)
             {
                 hive.Production();
                 hive.LifeCycle();
                 HiveModel.UpdateView();
-            }
+            }*/
             //Tick 
         }
     }
+}
+
+
+public interface ITick
+{
+    public void LiveTick() =>  throw new System.NotImplementedException();
+    public void LiveTick(WeatherData data) => throw new System.NotImplementedException();
+}
+
+public class WeatherData
+{
+    //TODO TMP 
 }

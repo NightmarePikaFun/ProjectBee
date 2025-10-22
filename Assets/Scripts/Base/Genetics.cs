@@ -8,7 +8,7 @@ public class Genetics
     public float ProductionMultiplayer { get; private set; }
     public float LifeTimeMultiplayer { get; private set; }
 
-    public ActiveTemperature Temperature { get; private set; }
+    public Temperature Temperature { get; private set; }
     public ActiveTime Time { get; private set; }
     public Flower Flower { get; private set; }
 
@@ -28,7 +28,7 @@ public enum ActiveTime
     Cathemerality
 }
 
-public enum ActiveTemperature
+public enum Temperature
 {
     Hot,
     Warm,
@@ -41,4 +41,14 @@ public enum Flower
 {
     Red,
     Orange,
+}
+
+public enum Weather
+{
+
+}
+
+public enum Humidity
+{
+
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class tmp : MonoBehaviour, IPointerClickHandler
+public class tmp : MonoBehaviour
 {
     [SerializeField]
     private Transform cube;
@@ -55,29 +55,4 @@ public class tmp : MonoBehaviour, IPointerClickHandler
         image.enabled = state;
     }
 
-    private void OnMouseDown()
-    {
-        
-
-    }
-
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        switch (eventData.button) {
-            case PointerEventData.InputButton.Left:
-                Debug.Log("L+D");
-                break;
-            case PointerEventData.InputButton.Right:
-                ControllerUI.Instance.ShowHiveView(hive);
-                Debug.Log("R+D");
-                break;
-        }
-        if (Input.GetMouseButtonDown(0))
-            
-        if (Input.GetMouseButtonDown(1))
-        {
-            //
-           
-        }
-    }
 }
