@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class HiveObject : MonoBehaviour, IPointerClickHandler, ITick
+public class HiveObject : MonoBehaviour, IPointerClickHandler, ITick, IUpgrades
 {
     private Hive _hive;
     private bool _state;
+
+    private List<Upgrade> upgrades;
 
     public void OnPointerClick(PointerEventData eventData)
     {
@@ -29,5 +31,15 @@ public class HiveObject : MonoBehaviour, IPointerClickHandler, ITick
         if (!_state)
             return;
         _hive.LiveTick(weather);
+    }
+
+    public void AddUpgrade(Upgrade upgrade)
+    {
+        _hive.AddUpgrade(upgrade);
+    }
+
+    public void RemoveUpgrade(Upgrade upgrade)
+    {
+        _hive.RemoveUpgrade(upgrade);
     }
 }

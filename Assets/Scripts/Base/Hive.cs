@@ -1,13 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
-public class Hive: ITick
+public class Hive: ITick, IUpgrades
 {
     private BeeQueen _beeQueen;
     private Bee[] _bees;
     private int _production = 0;
     private int _maxProduction = 20;
+    private List<Upgrade> upgrades;
 
     public Bee[] Bees { get { return _bees; } }
     public Bee BeeQueen { get { return _beeQueen == null ? null : _beeQueen.Bee; } }
@@ -142,5 +144,16 @@ public class Hive: ITick
         }
 
         return count;
+    }
+
+    public void AddUpgrade(Upgrade upgrade)
+    {
+        upgrades.Add(upgrade);
+    }
+
+    public void RemoveUpgrade(Upgrade upgrade)
+    {
+        if(upgrades.Contains(upgrade))
+            upgrades.Remove(upgrade);
     }
 }

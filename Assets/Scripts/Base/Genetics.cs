@@ -25,7 +25,8 @@ public enum ActiveTime
 {
     Durnial,
     Nocturnal,
-    Cathemerality
+    Cathemerality,
+    None
 }
 
 public enum Temperature
@@ -34,21 +35,27 @@ public enum Temperature
     Warm,
     Normal,
     Chilly,
-    Cold
+    Cold,
+    None
 }
 
 public enum Flower
 {
     Red,
     Orange,
+    None
 }
 
 public enum Weather
 {
-
+    Sunny,
+    Rainy,
+    Snowy,
+    Foggy,
+    None
 }
 
 public enum Humidity
 {
-
+    None
 }

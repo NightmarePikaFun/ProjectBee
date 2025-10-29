@@ -57,6 +57,12 @@ public interface ITick
     public void LiveTick(WeatherData data) => throw new System.NotImplementedException();
 }
 
+public interface IUpgrades
+{
+    public abstract void AddUpgrade(Upgrade upgrade);
+    public abstract void RemoveUpgrade(Upgrade upgrade);
+}
+
 public class WeatherData
 {
     //TODO TMP 
